@@ -5,4 +5,3 @@ const CreateLink = () => {
 }
 
 export default CreateLink
-''
