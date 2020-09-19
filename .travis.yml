@@ -11,10 +11,10 @@ script:
 
 deploy:
   provider: elasticbeanstalk
-  region: "us-east-1"
+  region: "us-east-2"
   app: "hooks-news"
   env: "HooksNews-env"
-  bucket_name: "elasticbeanstalk-us-east-1-127596255715"
+  bucket_name: "elasticbeanstalk-us-east-2-127596255715"
   bucket_path: "hooks-news"
   on:
     branch: master
