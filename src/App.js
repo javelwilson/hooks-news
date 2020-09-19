@@ -17,7 +17,7 @@ function App() {
         <Route path='/forgot' component={ForgetPassword} />
         <Route path='/search' component={SearchLinks} />
         <Route path='/top' component={LinkList} />
-        <Route path='/new/:page' component={LinkList} />
+        <Route path='/news/:page' component={LinkList} />
         <Route path='/link/:linkId' component={LinkDetail} />
       </Switch>
     </BrowserRouter>
