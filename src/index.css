@@ -65,8 +65,10 @@ input {
   padding: 0.25rem;
   color: black;
   justify-content: space-between;
+  align-items: center;
   display: flex;
 }
+
 
 .header-title {
   font-weight: 700;
