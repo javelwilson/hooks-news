@@ -1,6 +1,7 @@
 import React from 'react'
 import useFormValidation from './useFormValidation'
 import validateLogin from './validateLogin'
+import firebase from '../../firebase'
 
 const INITIAL_STATE = {
   name: '',
@@ -8,7 +9,7 @@ const INITIAL_STATE = {
   password: '',
 }
 
-const Login = () => {
+const Login = (props) => {
   const {
     handleChange,
     handleBlur,
@@ -16,8 +17,24 @@ const Login = () => {
     values,
     errors,
     isSubmitting,
-  } = useFormValidation(INITIAL_STATE, validateLogin)
+  } = useFormValidation(INITIAL_STATE, validateLogin, authenticateUser)
+
   const [login, setLogin] = React.useState(true)
+  const [firebaseError, setFirebaseError] = React.useState(null)
+
+  async function authenticateUser() {
+    const { name, email, password } = values
+    try {
+      const response = login
+        ? await firebase.login(email, password)
+        : await firebase.register(name, email, password)
+      props.history.push('/')
+    } catch (err) {
+      console.error('Authentication Error', err)
+      setFirebaseError(err.message)
+    }
+  }
+
   return (
     <div className=''>
       <h2 className='mv3'>{login ? 'Login' : 'Create Account'}</h2>
@@ -54,6 +71,7 @@ const Login = () => {
           className={errors.password && 'error-input'}
         />
         {errors.password && <p className='error-text'>{errors.password}</p>}
+        {firebaseError && <p className='error-text'>{firebaseError}</p>}
 
         <div className='flex mt3'>
           <button
