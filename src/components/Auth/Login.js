@@ -37,7 +37,7 @@ const Login = (props) => {
   }
 
   return (
-    <div className=''>
+    <div>
       <h2 className='mv3'>{login ? 'Login' : 'Create Account'}</h2>
       <form className='flex flex-column' onSubmit={handleSubmit}>
         {!login && (
