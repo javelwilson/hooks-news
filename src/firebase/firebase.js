@@ -4,7 +4,11 @@ import 'firebase/auth'
 
 class Firebase {
   constructor() {
-    app.initializeApp(firebaseConfig)
+    try {
+      app.initializeApp(firebaseConfig)
+    } catch (err) {
+      console.log(err)
+    }
     this.auth = app.auth()
   }
 
@@ -20,6 +24,14 @@ class Firebase {
 
   async login(email, password) {
     return await this.auth.signInWithEmailAndPassword(email, password)
+  }
+
+  async logout() {
+    await this.auth.signOut()
+  }
+
+  async resetPassword(email) {
+    await this.auth.sendPasswordResetEmail(email)
   }
 }
 

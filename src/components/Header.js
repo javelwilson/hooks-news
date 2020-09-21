@@ -3,7 +3,7 @@ import { withRouter, NavLink } from 'react-router-dom'
 import { FirebaseContext } from '../firebase'
 
 const Header = () => {
-  const {user, firebase} = React.useContext(FirebaseContext)
+  const { user, firebase } = React.useContext(FirebaseContext)
   return (
     <div className='header'>
       <div className='flex'>
@@ -22,23 +22,29 @@ const Header = () => {
         <NavLink to='/search' className='header-link'>
           search
         </NavLink>
-        <span className='divider'>|</span>
-        <NavLink to='/create' className='header-link'>
-          submit
-        </NavLink>
+        {user && (
+          <>
+            <span className='divider'>|</span>
+            <NavLink to='/create' className='header-link'>
+              submit
+            </NavLink>
+          </>
+        )}
       </div>
       <div className='flex'>
         {user ? (
           <>
-          <div className="header-name">{user.displayName}</div>
-          <div className="divider">|</div>
-          <div className="header-button">
-            Logout
-          </div>
+            <div className='header-name'>{user.displayName}</div>
+            <div className='divider'>|</div>
+            <div className='header-button' onClick={() => firebase.logout()}>
+              logout
+            </div>
           </>
-        ) : <NavLink to='/login' className='header-link'>
-          login
-        </NavLink>}
+        ) : (
+          <NavLink to='/login' className='header-link'>
+            login
+          </NavLink>
+        )}
       </div>
     </div>
   )
